@@ -3,21 +3,14 @@ set -e
 
 ### =========================
 ### sing-box core build script
+### Build from main branch
 ### =========================
 
 # --------- Config ----------
-DEFAULT_VERSION="1.12.13"
 SINGBOX_TAGS="with_v2ray_api with_quic with_gvisor with_dhcp with_wireguard with_utls with_acme with_clash_api with_tailscale"
 
 HIDDIFY_DIR="/opt/hiddify-manager/singbox"
 HIDDIFY_BIN="$HIDDIFY_DIR/sing-box"
-
-# --------- Args ------------
-VERSION="${1:-$DEFAULT_VERSION}"
-
-echo "▶ sing-box version: $VERSION"
-echo "▶ build tags: $SINGBOX_TAGS"
-echo
 
 # --------- Dependencies ----------
 echo "▶ Installing build dependencies..."
@@ -49,15 +42,26 @@ eval "$(go run ./cmd/build-naive --target=linux/amd64 env)"
 
 # --------- sing-box ----------
 echo
-echo "▶ Cloning sing-box v$VERSION..."
+echo "▶ Cloning sing-box (main branch)..."
 cd "$WORKDIR"
-git clone --depth=1 --branch "v$VERSION" https://github.com/SagerNet/sing-box.git
+git clone --depth=1 https://github.com/SagerNet/sing-box.git
 cd "$SINGBOX_DIR"
+
+# --------- Detect Version ----------
+echo "▶ Detecting sing-box version from git metadata..."
+SINGBOX_VERSION="$(git describe --tags --dirty --always 2>/dev/null || true)"
+
+if [[ -z "$SINGBOX_VERSION" ]]; then
+  SINGBOX_VERSION="main-$(git rev-parse --short HEAD)"
+fi
+
+echo "▶ Detected version: $SINGBOX_VERSION"
 
 # --------- Build ----------
 echo "▶ Building sing-box core..."
 go build \
   -tags "$SINGBOX_TAGS" \
+  -ldflags "-X github.com/sagernet/sing-box/constant.Version=$SINGBOX_VERSION" \
   -o sing-box \
   ./cmd/sing-box
 
@@ -90,7 +94,7 @@ if [[ ! -f "$HIDDIFY_BIN" ]]; then
 fi
 
 # --------- Backup ----------
-BACKUP_FILE="$HIDDIFY_BIN.bak.$(date +%Y%m%d-%H%M%S)"
+BACKUP_FILE="$HIDDIFY_BIN.bak.$SINGBOX_VERSION.$(date +%Y%m%d-%H%M%S)"
 echo "▶ Backing up existing sing-box binary..."
 cp "$HIDDIFY_BIN" "$BACKUP_FILE"
 
