@@ -100,6 +100,7 @@ cp "$HIDDIFY_BIN" "$BACKUP_FILE"
 
 # --------- Replace ----------
 echo "▶ Replacing sing-box binary..."
+systemctl stop hiddify-singbox
 cp "$SINGBOX_DIR/sing-box" "$HIDDIFY_BIN"
 chmod +x "$HIDDIFY_BIN"
 
