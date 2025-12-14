@@ -44,7 +44,7 @@ eval "$(go run ./cmd/build-naive --target=linux/amd64 env)"
 echo
 echo "▶ Cloning sing-box (main branch)..."
 cd "$WORKDIR"
-git clone --depth=1 https://github.com/SagerNet/sing-box.git
+git clone --depth=1 --branch main https://github.com/SagerNet/sing-box.git
 cd "$SINGBOX_DIR"
 
 # --------- Detect Version ----------
