@@ -75,7 +75,7 @@ echo
 # --------- Replace Prompt ----------
 read -rp "❓ Do you want to replace the current Hiddify sing-box core with this build? (y/N): " ANSWER
 
-if [[ "$ANSWER" != "y" && "$ANSWER" != "Y" ]]; then
+if [[ ! "$ANSWER" =~ ^[Yy]$ ]]; then
   echo "ℹ️ Replacement canceled by user."
   exit 0
 fi
