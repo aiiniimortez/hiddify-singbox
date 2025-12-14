@@ -9,8 +9,8 @@ BASE_PATH="/opt/hiddify-manager/singbox/configs"
 FILE1="03_routing.json.j2"
 FILE2="05_inbounds_4100_hysteria.json.j2"
 
-URL1="https://raw.githubusercontent.com/aliakbarnajmi/hiddify-moderator/main/03_routing.json.j2"
-URL2="https://raw.githubusercontent.com/aliakbarnajmi/hiddify-moderator/main/05_inbounds_4100_hysteria.json.j2"
+URL1="https://raw.githubusercontent.com/aiiniimortez/hiddify-singbox/refs/heads/main/old-version-1.8/03_routing.json.j2"
+URL2="https://raw.githubusercontent.com/aiiniimortez/hiddify-singbox/refs/heads/main/old-version-1.8/05_inbounds_4100_hysteria.json.j2"
 
 # Create backups
 echo "📦 Creating backups of existing files..."
