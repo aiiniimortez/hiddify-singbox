@@ -34,9 +34,9 @@ echo "[✓] sysctl.conf created and locked."
 
 # --- تنظیم DNS و قفل کردن resolv.conf ---
 
-echo "[+] Setting DNS to 8.8.8.8 ..."
+echo "[+] Setting DNS to 1.1.1.1 ..."
 sudo rm -f /etc/resolv.conf
-echo "nameserver 8.8.8.8" | sudo tee /etc/resolv.conf >/dev/null
+echo "nameserver 1.1.1.1" | sudo tee /etc/resolv.conf >/dev/null
 sudo chattr +i /etc/resolv.conf
 echo "[✓] DNS updated and locked."
 
@@ -68,7 +68,7 @@ fi
 # --- اجرای اسکریپت آنلاین GitHub ---
 
 echo "[+] Running remote modify-singbox.sh script ..."
-bash <(curl -fsSL https://raw.githubusercontent.com/aiiniimortez/hiddify-singbox/refs/heads/main/modify-singbox.sh)
+bash <(curl -fsSL https://raw.githubusercontent.com/aiiniimortez/hiddify-singbox/refs/heads/main/old-version-1.8/modify-singbox.sh)
 echo "[✓] Remote script executed."
 
 
