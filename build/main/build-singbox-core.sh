@@ -16,7 +16,7 @@ HIDDIFY_BIN="$HIDDIFY_DIR/sing-box"
 echo "▶ Installing build dependencies..."
 apt update -y
 apt install -y \
-  git curl wget build-essential \
+  git curl wget unzip build-essential \
   pkg-config clang lld \
   golang ca-certificates
 
